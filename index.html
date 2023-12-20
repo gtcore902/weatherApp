@@ -15,22 +15,27 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" >
   </head>
   <body>
-    <h1>Weather App</h1>
-    <form action="#" id="localisationForm">
-      <input type="text" name="localisation" id="localisation" placeholder="Ville"/>
-      <input type="submit" value="Chercher" />
-    </form>
-    <!-- <div id="datas"></div> -->
+    <!-- <h1>Weather App</h1> -->
     <main>
       <header>
-        <p>New York</p>
+        <!-- <p>New York</p> -->
+        <form action="#" id="locationForm">
+          <div class="form-elements">
+            <label for="location">
+              <i class="fa-solid fa-pen"></i>
+            </label>
+            <input type="text" name="location" id="location" class="location" placeholder="Ville" value="London"/>  
+            <button id="submit" type="submit">
+              <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+            </button>
+          </div>
+        </form>
+    
         <p class="light-color">Mardi 19 Décembre 2023</p>
       </header>
       <div class="main-weather">
           <p>Aujourd'hui</p>
           <div id="datas" class="main-weather-datas">
-            <!-- <i class="fa-solid fa-cloud-moon-rain fa-2xl"></i> -->
-            <!-- <span>38°</span> -->
           </div>
           <p class="description">Nuageux</p>
       </div>
@@ -68,7 +73,7 @@
       </div>
     </main>
     <script type="module" src="js/main.js"></script>
-    <!-- <script src="https://kit.fontawesome.com/c0a3d24aca.js" crossorigin="anonymous" defer></script> -->
+    <script src="https://kit.fontawesome.com/c0a3d24aca.js" crossorigin="anonymous" defer></script>
 
   </body>
 </html>

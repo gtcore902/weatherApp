@@ -28,18 +28,36 @@ header {
     grid-column-end: 7;
     padding: 0 20px;
 }
-header p {
+#locationForm {
+    display: flex;
+    align-items: flex-end;
     flex-grow: 1;
-    padding-top: 5px;
-    font-size: 1.125em;
+
 }
-header p:first-of-type {
+.form-elements {
+    display: flex;
+    align-items: center;
+}
+.location {
+    border: none;
     display: flex;
     align-items: flex-end;
     padding-top: 0;
-    padding-bottom: 5px;
     font-size: 1.5em;
     font-weight: 700;
+    color: black;
+    margin-left: 10px;
+}
+::placeholder {
+    color: black;
+}
+#submit {
+    border: none;
+    background-color: transparent;
+}
+header p {
+    padding-top: 5px;
+    font-size: 1.125em;
 }
 .main-weather {
     grid-column-start: 1;

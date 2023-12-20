@@ -18,10 +18,10 @@ let weatherConditionsConverter = {
  * Get user location entry from form
  */
 async function getUserlocation() {
-    let localisationForm = document.getElementById("localisationForm");
-    localisationForm.addEventListener("submit", (event) => {
+    let locationForm = document.getElementById("locationForm");
+    locationForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        let localisationEntry = document.getElementById("localisation");
+        let localisationEntry = document.querySelector(".location");
         userLocation = localisationEntry.value;
         console.log(localisationEntry.value);
         getLocationName(userLocation)
@@ -73,7 +73,7 @@ async function getWeatherDatas(userLocation) {
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
         // para.innerHTML = `${datas.name}, ${datas.sys.country} <br> ${datas.weather[0].description} <br> ${converter} °C`;
-        para.innerHTML = `${converter} °`;
+        para.innerHTML = `${converter}°`;
         document.getElementById("datas").appendChild(weatherIcon);
         document.getElementById("datas").appendChild(para);
     } catch (error) {
