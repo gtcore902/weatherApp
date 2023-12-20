@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>HTML + CSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" >
   </head>
   <body>
     <h1>Weather App</h1>
@@ -13,7 +20,55 @@
       <input type="text" name="localisation" id="localisation" placeholder="Ville"/>
       <input type="submit" value="Chercher" />
     </form>
-    <div id="datas"></div>
+    <!-- <div id="datas"></div> -->
+    <main>
+      <header>
+        <p>New York</p>
+        <p class="light-color">Mardi 19 Décembre 2023</p>
+      </header>
+      <div class="main-weather">
+          <p>Aujourd'hui</p>
+          <div id="datas" class="main-weather-datas">
+            <!-- <i class="fa-solid fa-cloud-moon-rain fa-2xl"></i> -->
+            <!-- <span>38°</span> -->
+          </div>
+          <p class="description">Nuageux</p>
+      </div>
+      <div class="details">
+        <div class="detail">11km/h <span>Vent</span></div>
+        <div class="detail">78% <span>Humidité</span></div>
+        <div class="detail">32° <span>Ressentis</span></div>
+      </div>
+      <div class="next-days">
+        <div class="day">
+          <p class="">Mer</p>
+          <img src="" alt="">
+          <p class="temp-day-">16°</p>
+        </div>
+        <div class="day">
+          <p class="">Mer</p>
+          <img src="" alt="">
+          <p class="temp-day-">16°</p>
+        </div>
+        <div class="day">
+          <p class="">Mer</p>
+          <img src="" alt="">
+          <p class="temp-day-">16°</p>
+        </div>
+        <div class="day">
+          <p class="">Mer</p>
+          <img src="" alt="">
+          <p class="temp-day-">16°</p>
+        </div>
+        <div class="day">
+          <p class="">Mer</p>
+          <img src="" alt="">
+          <p class="temp-day-">16°</p>
+        </div>
+      </div>
+    </main>
     <script type="module" src="js/main.js"></script>
+    <!-- <script src="https://kit.fontawesome.com/c0a3d24aca.js" crossorigin="anonymous" defer></script> -->
+
   </body>
 </html>

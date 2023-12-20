@@ -67,11 +67,13 @@ async function getWeatherDatas(userLocation) {
         console.log(datas);
         console.log(datas.weather[0].description);
         let weatherIcon = document.createElement("img");
-        let para = document.createElement("p");
+        let para = document.createElement("span");
         let converter = (Math.floor(datas.main.temp) - 273.15).toFixed(2);
+        converter = Math.round(converter)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
-        para.innerHTML = `${datas.name}, ${datas.sys.country} <br> ${datas.weather[0].description} <br> ${converter} °C`;
+        // para.innerHTML = `${datas.name}, ${datas.sys.country} <br> ${datas.weather[0].description} <br> ${converter} °C`;
+        para.innerHTML = `${converter} °`;
         document.getElementById("datas").appendChild(weatherIcon);
         document.getElementById("datas").appendChild(para);
     } catch (error) {
