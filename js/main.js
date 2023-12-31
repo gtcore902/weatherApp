@@ -1,8 +1,11 @@
 import API_KEY from './apiKey.js'
+let locationForm = document.getElementById("locationForm");
 let submitBtn = document.getElementById('submitBtn')
 let inputTextBtn = document.getElementById('inputTextBtn')
 let weatherIcon = document.querySelector('.current-weather-icon')
 let weatherTemp = document.querySelector('.current-weather-temp')
+let errorText = document.querySelector('.error-text')
+let localStorageLocation = localStorage.getItem('location')
 let userLocation;
 let weatherConditionsConverter = {
     'clear sky': 'ondée',
@@ -18,6 +21,18 @@ let weatherConditionsConverter = {
 // console.log(weatherConditionsConverter.rain)
 
 /**
+ * Set storage system
+ */
+function setStorageSystem() {
+    if (localStorageLocation !== '') {
+        console.log(localStorageLocation)
+        getWeatherDatas(localStorageLocation)
+            .then(inputTextBtn.value = localStorageLocation)
+    } 
+}
+
+
+/**
  * Set visibility of submit button
  */
 function showSubmitButton () {
@@ -25,19 +40,37 @@ function showSubmitButton () {
         submitBtn.style.visibility = 'visible';
     })
  }
+
+ /**
+  * 
+  * @param {string} userLocation 
+  * @returns true
+  */
+ function checkEntries(userLocation) {
+    let regex = new RegExp('[a-zA-Z]')
+    userLocation = userLocation.trim()
+    if (regex.test(userLocation)) {
+        return true
+    }
+ }
 /**
  * Get user location entry from form
  */
 async function getUserlocation() {
-    let locationForm = document.getElementById("locationForm");
     locationForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        // check entries here with regex pattern
         userLocation = inputTextBtn.value;
         console.log(inputTextBtn.value);
-        getLocationName(userLocation)
+        // check entries
+        if (checkEntries(userLocation)) {
+            localStorage.setItem('location', userLocation)
+            errorText.textContent = ""
+            getLocationName(userLocation)
             .then(getWeatherDatas(userLocation))
                 .then(submitBtn.style.visibility = 'hidden');
+        } else {
+            errorText.textContent = "Please enter valide location"
+        }
     });
   }
 
@@ -92,6 +125,7 @@ async function getWeatherDatas(userLocation) {
 /**
  * Launch system weather
  */
-getUserlocation();
 showSubmitButton()
+getUserlocation()
+setStorageSystem()
   

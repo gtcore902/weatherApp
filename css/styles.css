@@ -21,18 +21,28 @@ main {
     height: 100vh;
 }
 header {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
+    display: grid;
     grid-column-start: 1;
     grid-column-end: 7;
     padding: 0 20px;
 }
 #locationForm {
+    display: grid;
+    grid-template-rows: 1fr 1fr ;
+    /* grid-row: 1/2; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* align-items: flex-end; */
+    /* flex-grow: 1; */
+    align-self: baseline;
+}
+.error-text {
     display: flex;
-    align-items: flex-end;
-    flex-grow: 1;
-
+    align-items: center;
+    color: darkred;
 }
 .form-elements {
     display: flex;
@@ -43,10 +53,11 @@ header {
     display: flex;
     align-items: flex-end;
     padding-top: 0;
+    height: 50px;
     font-size: 1.5em;
     font-weight: 700;
     color: black;
-    margin-left: 10px;
+    padding-left: 10px;
 }
 ::placeholder {
     color: black;
