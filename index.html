@@ -22,11 +22,11 @@
         <form action="#" id="locationForm">
           <div class="form-elements">
             <label for="location">
-              <i class="fa-solid fa-pen"></i>
-            </label>
-            <input type="text" name="location" id="location" class="location" placeholder="Ville" value="London"/>  
-            <button id="submit" type="submit">
               <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+            </label>
+            <input type="text" name="location" id="inputTextBtn" class="inputTextBtn" placeholder="Ville" value="London"/>  
+            <button id="submitBtn" type="submit">
+              <i class="fa-solid fa-arrow-right fa-2xl"></i>
             </button>
           </div>
         </form>
@@ -36,6 +36,8 @@
       <div class="main-weather">
           <p>Aujourd'hui</p>
           <div id="datas" class="main-weather-datas">
+            <img class="current-weather-icon" src="" alt="">
+            <span class="current-weather-temp">-</span>
           </div>
           <p class="description">Nuageux</p>
       </div>

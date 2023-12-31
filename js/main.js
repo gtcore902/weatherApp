@@ -1,5 +1,8 @@
 import API_KEY from './apiKey.js'
-
+let submitBtn = document.getElementById('submitBtn')
+let inputTextBtn = document.getElementById('inputTextBtn')
+let weatherIcon = document.querySelector('.current-weather-icon')
+let weatherTemp = document.querySelector('.current-weather-temp')
 let userLocation;
 let weatherConditionsConverter = {
     'clear sky': 'ondée',
@@ -15,17 +18,26 @@ let weatherConditionsConverter = {
 // console.log(weatherConditionsConverter.rain)
 
 /**
+ * Set visibility of submit button
+ */
+function showSubmitButton () {
+    inputTextBtn.addEventListener('input', () => {
+        submitBtn.style.visibility = 'visible';
+    })
+ }
+/**
  * Get user location entry from form
  */
 async function getUserlocation() {
     let locationForm = document.getElementById("locationForm");
     locationForm.addEventListener("submit", (event) => {
         event.preventDefault();
-        let localisationEntry = document.querySelector(".location");
-        userLocation = localisationEntry.value;
-        console.log(localisationEntry.value);
+        // check entries here with regex pattern
+        userLocation = inputTextBtn.value;
+        console.log(inputTextBtn.value);
         getLocationName(userLocation)
             .then(getWeatherDatas(userLocation))
+                .then(submitBtn.style.visibility = 'hidden');
     });
   }
 
@@ -66,16 +78,12 @@ async function getWeatherDatas(userLocation) {
         const datas = await response.json();
         console.log(datas);
         console.log(datas.weather[0].description);
-        let weatherIcon = document.createElement("img");
-        let para = document.createElement("span");
         let converter = (Math.floor(datas.main.temp) - 273.15).toFixed(2);
         converter = Math.round(converter)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
         // para.innerHTML = `${datas.name}, ${datas.sys.country} <br> ${datas.weather[0].description} <br> ${converter} °C`;
-        para.innerHTML = `${converter}°`;
-        document.getElementById("datas").appendChild(weatherIcon);
-        document.getElementById("datas").appendChild(para);
+        weatherTemp.innerHTML = `${converter}°`;
     } catch (error) {
         console.error(error);
     }
@@ -85,4 +93,5 @@ async function getWeatherDatas(userLocation) {
  * Launch system weather
  */
 getUserlocation();
+showSubmitButton()
   

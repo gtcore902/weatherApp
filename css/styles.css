@@ -38,7 +38,7 @@ header {
     display: flex;
     align-items: center;
 }
-.location {
+.inputTextBtn {
     border: none;
     display: flex;
     align-items: flex-end;
@@ -51,9 +51,11 @@ header {
 ::placeholder {
     color: black;
 }
-#submit {
+#submitBtn {
     border: none;
     background-color: transparent;
+    visibility: hidden;
+    margin-left: 5px;
 }
 header p {
     padding-top: 5px;
