@@ -41,9 +41,9 @@ let dayConverter = {
  */
 async function setStorageSystem() {
     if (localStorageLocation !== null) {
-        console.log('fuck')
         await removeErrorImg()
-        .then(getCurrentWeatherDatas(localStorageLocation))
+        .then(getWeatherDatas(localStorageLocation))
+        // .then(getForecastWeatherDatas(lat, lon, API_KEY))
             .then(inputTextBtn.value = localStorageLocation)
     } else if (localStorageLocation === null) {
         console.log(':((')
@@ -103,9 +103,9 @@ async function launchSystem() {
             localStorage.setItem('location', userLocation)
             errorText.textContent = ""
             // getLocationName(userLocation)
-            getCurrentWeatherDatas(userLocation)
+            getWeatherDatas(userLocation)
                 .then(submitBtn.style.visibility = 'hidden')
-                    .then(getForecastWeatherDatas(lat, lon, API_KEY))
+                    // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
             errorText.textContent = "Please enter valide location"
         }
@@ -164,7 +164,6 @@ async function getForecastWeatherDatas(lat, lon, apiKey) {
  * @param {string} weatherSky 
  */
 function displayCurrentWeatherSky(weatherSky) {
-    console.log(typeof weatherSky)
     currentWeatherSky.innerHTML = convertCurrentWeatherSky(weatherSky)
 }
 /**
@@ -172,7 +171,6 @@ function displayCurrentWeatherSky(weatherSky) {
  * @param {number} temp 
  */
 function displayCurrentWeatherTemp(temp) {
-    console.log(typeof temp)
     currentWeatherTemp.innerHTML = `${temp}°`
 }
 /**
@@ -180,7 +178,6 @@ function displayCurrentWeatherTemp(temp) {
  * @param {number} wind 
  */
 function displayCurrentWeatherWind(wind) {
-    console.log(typeof wind)
     currentWeatherWind.innerHTML = `${wind} km/h <span>Vent</span>`
 }
 /**
@@ -188,7 +185,6 @@ function displayCurrentWeatherWind(wind) {
  * @param {number} humidity 
  */
 function displayCurrentWeatherHumidity(humidity) {
-    console.log(typeof humidity)
     currentWeatherHumidity.innerHTML = `${humidity}% <span>Humidité</span>`
 }
 /**
@@ -196,14 +192,13 @@ function displayCurrentWeatherHumidity(humidity) {
  * @param {number} feels 
  */
 function displayCurrentWeatherFeels(feels) {
-    console.log(typeof feels)
     currentWeatherFeels.innerHTML = `${convertKelvinTemperature(feels)} ° <span>Ressenties</span>`
 }
 /**
  * Get current weather datas from API located
  * @param {string} userLocation 
  */
-async function getCurrentWeatherDatas(userLocation) {
+async function getWeatherDatas(userLocation) {
     try {
         const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${API_KEY}`
@@ -227,8 +222,9 @@ async function getCurrentWeatherDatas(userLocation) {
         displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
         displayCurrentWeatherFeels(datas.main.feels_like)
         // Get forcast datas
-        lat = datas.coord.lat
-        lon = datas.coord.lon
+        lat = datas.coord.lat // check if necessary if function below
+        lon = datas.coord.lon // check if necessary if function below
+        getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
     } catch (error) {
         console.error(error);
     }
