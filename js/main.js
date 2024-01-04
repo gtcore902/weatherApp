@@ -159,20 +159,44 @@ async function getForecastWeatherDatas(lat, lon, apiKey) {
         console.error(error);
     }
 }
-
+/**
+ * Display current weather sky
+ * @param {string} weatherSky 
+ */
 function displayCurrentWeatherSky(weatherSky) {
+    console.log(typeof weatherSky)
     currentWeatherSky.innerHTML = convertCurrentWeatherSky(weatherSky)
 }
+/**
+ * Display current weather temperature
+ * @param {number} temp 
+ */
 function displayCurrentWeatherTemp(temp) {
+    console.log(typeof temp)
     currentWeatherTemp.innerHTML = `${temp}°`
 }
+/**
+ * Display current weather swind
+ * @param {number} wind 
+ */
 function displayCurrentWeatherWind(wind) {
+    console.log(typeof wind)
     currentWeatherWind.innerHTML = `${wind} km/h <span>Vent</span>`
 }
+/**
+ * Display current weather humidity
+ * @param {number} humidity 
+ */
 function displayCurrentWeatherHumidity(humidity) {
+    console.log(typeof humidity)
     currentWeatherHumidity.innerHTML = `${humidity}% <span>Humidité</span>`
 }
+/**
+ * Display current weather feels temperature
+ * @param {number} feels 
+ */
 function displayCurrentWeatherFeels(feels) {
+    console.log(typeof feels)
     currentWeatherFeels.innerHTML = `${convertKelvinTemperature(feels)} ° <span>Ressenties</span>`
 }
 /**
