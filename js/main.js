@@ -65,7 +65,7 @@ async function setStorageSystem() {
         // .then(getForecastWeatherDatas(lat, lon, API_KEY))
             .then(inputTextBtn.value = localStorageLocation)
     } else if (localStorageLocation === null) {
-        console.log(':((')
+        // errorText.textContent = "Please enter valide location"
         let errorImg = document.createElement('img')
         errorImg.src = 'images/undraw_happy_music_g6wc.svg'
         errorImg.classList.add('feeling-blue')
@@ -163,7 +163,7 @@ function getCurrentDate(datas) {
  * Get and display data for the following days
  * @param {object} datas 
  */
-function GetDisplayforecastDay(datas) {
+function getDisplayforecastDay(datas) {
     forecastDayArrayContainersArray.map((element) => {
         // Create container
         let dayContainer = document.createElement('div')
@@ -180,7 +180,7 @@ function GetDisplayforecastDay(datas) {
         // Create element p for temperature of the day
         let dayContainerTemp = document.createElement('p')
         dayContainerTemp.classList.add('temp-day')
-        dayContainerTemp.textContent = convertKelvinTemperature(datas.list[element].main.temp) + ' °'
+        dayContainerTemp.textContent = convertKelvinTemperature(datas.list[element].main.temp) + '°'
         // Add elements to container
         dayContainer.appendChild(dayContainerDay)
         dayContainer.appendChild(dayContainerWeatherImg)
@@ -198,6 +198,8 @@ async function getForecastWeatherDatas(lat, lon) {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
         if (response.status === 404 || response.status === 400) {
+            // errorText.textContent = "Please enter valide location"
+            // console.log('erreur ...')
             throw new Error("Error: La ville n'a pas été trouvé");
         }
         if (!response.ok) {
@@ -208,7 +210,7 @@ async function getForecastWeatherDatas(lat, lon) {
         // Get and display current date
         getCurrentDate(datas.list[0].dt_txt)
         // Get and display data for the following days
-        GetDisplayforecastDay(datas)
+        getDisplayforecastDay(datas)
     } catch (error) {
         console.error(error);
     }
@@ -265,8 +267,8 @@ async function getWeatherDatas(userLocation) {
         }
         const datas = await response.json();
         console.log(datas);
-        console.log(datas.weather[0].description);
-        console.log('lat : ' + datas.coord.lat, 'lon : ' + datas.coord.lon);
+        // console.log(datas.weather[0].description);
+        // console.log('lat : ' + datas.coord.lat, 'lon : ' + datas.coord.lon);
         let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
