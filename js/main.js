@@ -12,6 +12,7 @@ let currentWeatherFeels = document.querySelector('.current-weather-feels')
 let errorText = document.querySelector('.error-text')
 let localStorageLocation = localStorage.getItem('location')
 let userLocation;
+let currentDay = document.querySelector('.current-date')
 let lat, lon
 let weatherConditionsConverter = {
     'clearsky': 'Dégagé',
@@ -27,13 +28,27 @@ let weatherConditionsConverter = {
     'mist': 'Brouillard',
 }
 let dayConverter = {
-    0: 'Lun',
-    1: 'Mar',
-    2: 'Mer',
-    3: 'Jeu',
-    4: 'Ven',
-    5: 'Sam',
-    6: 'Dim'
+    0: 'Dimanche',
+    1: 'Lundi',
+    2: 'Mardi',
+    3: 'Mercredi',
+    4: 'Jeudi',
+    5: 'Vendredi',
+    6: 'Samedi',
+}
+let monthConverter = {
+    0: 'janvier',
+    1: 'février',
+    2: 'mars',
+    3: 'avril',
+    4: 'mai',
+    5: 'juin',
+    6: 'juillet',
+    7: 'août',
+    8: 'septembre',
+    9: 'octobre',
+    10: 'novembre',
+    11: 'décembre'
 }
 
 /**
@@ -51,11 +66,10 @@ async function setStorageSystem() {
         errorImg.src = 'images/undraw_happy_music_g6wc.svg'
         errorImg.classList.add('feeling-blue')
         currentWeatherTemp.appendChild(errorImg)
-        
     }
 }
 /**
- * Remoce error image if exists
+ * Remove error image if exists
  */
 async function removeErrorImg() {
     if (document.querySelector('.feeling-blue')) {
@@ -72,7 +86,7 @@ function showSubmitButton () {
  }
 
  /**
-  * 
+  * Check if user location and remove spaces
   * @param {string} userLocation 
   * @returns true
   */
@@ -83,13 +97,6 @@ function showSubmitButton () {
         return true
     }
  }
- /**
-  * Set behavior of input type text button on focus
-  */
-//  inputTextBtn.addEventListener('click', () => {
-//     console.log('focus')
-//     inputTextBtn.value = ""
-//  })
 /**
  * Get user location entry from form and launch fetch datas
  */
@@ -113,8 +120,11 @@ async function launchSystem() {
   }
 /**
  * function to convert current weather sky
+ * @param {string} englishCurrentWeatherSky
+ * @returns string
  */
 function convertCurrentWeatherSky(englishCurrentWeatherSky) {
+    console.log(typeof englishCurrentWeatherSky)
     if (englishCurrentWeatherSky.match(' ')) {
         let concatEnglishCurrentWeatherSky = englishCurrentWeatherSky.replace(' ','')
         let conditionsTranslated = weatherConditionsConverter[concatEnglishCurrentWeatherSky]
@@ -129,13 +139,25 @@ function convertCurrentWeatherSky(englishCurrentWeatherSky) {
  * @returns number
  */
 function convertKelvinTemperature(KelvinTemperature) {
-    return Math.round((Math.floor(KelvinTemperature) - 273.15).toFixed(2))
+    // return Math.round((Math.floor(KelvinTemperature) - 273.15).toFixed(2))
+    return (Math.floor(KelvinTemperature - 273.15))
 }
-
+/**
+ * Get and display the current date
+ * @param {object} datas 
+ */
+function getCurrentDate(datas) {
+    let today = new Date(datas)
+    let day = dayConverter[today.getDay()]
+    let dayNumber = today.getDate()
+    let month = monthConverter[today.getMonth()]
+    let year = today.getFullYear()
+    currentDay.textContent = `${day} ${dayNumber} ${month} ${year}`
+}
 /**
  * Get forcast weather datas from api
  */
-async function getForecastWeatherDatas(lat, lon, apiKey) {
+async function getForecastWeatherDatas(lat, lon) {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
         if (response.status === 404 || response.status === 400) {
@@ -146,14 +168,18 @@ async function getForecastWeatherDatas(lat, lon, apiKey) {
         }
         const datas = await response.json()
         console.log(datas)
-        console.log(datas.list[8].dt_txt)
-        let date = new Date(datas.list[8].dt_txt)
-        console.log(date.getDay()) // day number
-        console.log(datas.list[8].main.temp, datas.list[8].weather[0].description)
-        console.log(datas.list[16].main.temp)
-        console.log(datas.list[24].main.temp)
-        console.log(datas.list[32].main.temp)
-        console.log(datas.list[39].main.temp)
+        getCurrentDate(datas.list[0].dt_txt)
+        // let today = new Date(datas.list[0].dt_txt)
+        // console.log(datas.list[8].dt_txt)
+        // let date = new Date(datas.list[8].dt_txt)
+        // console.log(dayConverter[today.getDay()] + today.toString().charAt(8) + today.toString().charAt(9) + monthConverter[today.getMonth()] + today.getFullYear()) // current day
+        // console.log(date.toString().charAt(8)) // converted)
+        // console.log(date.toString().charAt(9)) // converted)
+        // console.log(datas.list[8].main.temp, datas.list[8].weather[0].description)
+        // console.log(datas.list[16].main.temp)
+        // console.log(datas.list[24].main.temp)
+        // console.log(datas.list[32].main.temp)
+        // console.log(datas.list[39].main.temp)
 
     } catch (error) {
         console.error(error);

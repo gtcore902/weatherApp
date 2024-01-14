@@ -13,7 +13,7 @@ You are all welcome :sunglasses:
 
  If you wish to use or contribute to the project, follow these steps:point_down::
 * Fork the project
-* Create apiKey.js file in js folder with the following code:
+* Replace in apiKey.js file the key with you own key:
   >``const API_KEY = 'YOUR_API_KEY'``
   >``export default API_KEY``
 * Create a feature branch
