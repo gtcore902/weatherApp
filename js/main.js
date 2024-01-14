@@ -14,7 +14,10 @@ let localStorageLocation = localStorage.getItem('location')
 let userLocation;
 let currentDay = document.querySelector('.current-date')
 let lat, lon
-let followingDaysArray = [8, 16, 24, 32]
+let forecastDayArrayContainersArray = [8, 16, 24, 32]
+let forecastDayArrayContainers = document.querySelectorAll('.day')
+forecastDayArrayContainers = Array.from(forecastDayArrayContainers)
+let nextDayContainer = document.querySelector('.next-days')
 let weatherConditionsConverter = {
     'clearsky': 'Dégagé',
     'fewclouds': 'Quelques nuages',
@@ -106,6 +109,8 @@ async function launchSystem() {
         event.preventDefault();
         userLocation = inputTextBtn.value;
         console.log(inputTextBtn.value);
+        // Reset container for the following days
+        nextDayContainer.innerHTML = ''
         // check entries
         if (checkEntries(userLocation)) {
             localStorage.setItem('location', userLocation)
@@ -125,7 +130,6 @@ async function launchSystem() {
  * @returns string
  */
 function convertCurrentWeatherSky(englishCurrentWeatherSky) {
-    console.log(typeof englishCurrentWeatherSky)
     if (englishCurrentWeatherSky.match(' ')) {
         let concatEnglishCurrentWeatherSky = englishCurrentWeatherSky.replace(' ','')
         let conditionsTranslated = weatherConditionsConverter[concatEnglishCurrentWeatherSky]
@@ -156,7 +160,39 @@ function getCurrentDate(datas) {
     currentDay.textContent = `${day} ${dayNumber} ${month} ${year}`
 }
 /**
+ * Get and display data for the following days
+ * @param {object} datas 
+ */
+function GetDisplayforecastDay(datas) {
+    forecastDayArrayContainersArray.map((element) => {
+        // Create container
+        let dayContainer = document.createElement('div')
+        dayContainer.classList.add('day')
+        // Create element p for name of the day
+        let dayContainerDay = document.createElement('p')
+        // Create new date for thios element
+        let nextDay = new Date(datas.list[element].dt_txt)
+        let dayIndex = nextDay.getDay()
+        dayContainerDay.textContent = dayConverter[dayIndex].charAt(0)+dayConverter[dayIndex].charAt(1)+dayConverter[dayIndex].charAt(2)
+        // Create element img for weather icon
+        let dayContainerWeatherImg = document.createElement('img') 
+        dayContainerWeatherImg.src = `https://openweathermap.org/img/wn/${datas.list[element].weather[0].icon}@2x.png`
+        // Create element p for temperature of the day
+        let dayContainerTemp = document.createElement('p')
+        dayContainerTemp.classList.add('temp-day')
+        dayContainerTemp.textContent = convertKelvinTemperature(datas.list[element].main.temp) + ' °'
+        // Add elements to container
+        dayContainer.appendChild(dayContainerDay)
+        dayContainer.appendChild(dayContainerWeatherImg)
+        dayContainer.appendChild(dayContainerTemp)
+        // Add all to DOM
+        nextDayContainer.appendChild(dayContainer)
+    })
+}
+/**
  * Get forcast weather datas from api
+ * @param {number} lat 
+ * @param {number} lon 
  */
 async function getForecastWeatherDatas(lat, lon) {
     try {
@@ -171,27 +207,8 @@ async function getForecastWeatherDatas(lat, lon) {
         console.log(datas)
         // Get and display current date
         getCurrentDate(datas.list[0].dt_txt)
-
-        for (const element of followingDaysArray) {
-            let date = new Date(datas.list[element].dt_txt)
-            console.log(date.getDay())
-            console.log(datas.list[element].dt_txt)
-            console.log(datas.list[element].main.temp)
-            console.log(datas.list[element].weather[0].description)
-        }
-        // followingDaysArray.map(element => 
-        //     date = new Date(datas.list[element].dt_txt), 
-        //     console.log(datas.list[element].dt_txt))
-        // console.log(datas.list[8].dt_txt)
-        // let date = new Date(datas.list[8].dt_txt)
-        // console.log(date.toString().charAt(8)) // converted)
-        // console.log(date.toString().charAt(9)) // converted)
-        // console.log(datas.list[8].main.temp, datas.list[8].weather[0].description)
-        // console.log(datas.list[16].main.temp)
-        // console.log(datas.list[24].main.temp)
-        // console.log(datas.list[32].main.temp)
-        // console.log(datas.list[39].main.temp)
-
+        // Get and display data for the following days
+        GetDisplayforecastDay(datas)
     } catch (error) {
         console.error(error);
     }
@@ -266,7 +283,6 @@ async function getWeatherDatas(userLocation) {
         console.error(error);
     }
 }
-
 /**
  * Launch weather system
  */
