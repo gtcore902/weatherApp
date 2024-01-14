@@ -14,6 +14,7 @@ let localStorageLocation = localStorage.getItem('location')
 let userLocation;
 let currentDay = document.querySelector('.current-date')
 let lat, lon
+let followingDaysArray = [8, 16, 24, 32]
 let weatherConditionsConverter = {
     'clearsky': 'Dégagé',
     'fewclouds': 'Quelques nuages',
@@ -168,11 +169,21 @@ async function getForecastWeatherDatas(lat, lon) {
         }
         const datas = await response.json()
         console.log(datas)
+        // Get and display current date
         getCurrentDate(datas.list[0].dt_txt)
-        // let today = new Date(datas.list[0].dt_txt)
+
+        for (const element of followingDaysArray) {
+            let date = new Date(datas.list[element].dt_txt)
+            console.log(date.getDay())
+            console.log(datas.list[element].dt_txt)
+            console.log(datas.list[element].main.temp)
+            console.log(datas.list[element].weather[0].description)
+        }
+        // followingDaysArray.map(element => 
+        //     date = new Date(datas.list[element].dt_txt), 
+        //     console.log(datas.list[element].dt_txt))
         // console.log(datas.list[8].dt_txt)
         // let date = new Date(datas.list[8].dt_txt)
-        // console.log(dayConverter[today.getDay()] + today.toString().charAt(8) + today.toString().charAt(9) + monthConverter[today.getMonth()] + today.getFullYear()) // current day
         // console.log(date.toString().charAt(8)) // converted)
         // console.log(date.toString().charAt(9)) // converted)
         // console.log(datas.list[8].main.temp, datas.list[8].weather[0].description)

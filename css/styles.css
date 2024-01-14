@@ -101,10 +101,7 @@ header p {
     grid-row: 2 / 4;
 }
 .main-weather-datas img {
-    /* display: flex;
-    justify-content: flex-end;
-    align-items: center; */
-    margin-left: auto;
+    margin: auto;
 }
 .main-weather-datas span {
     display: block;
@@ -158,12 +155,11 @@ header p {
 }
 
 .feeling-blue {
-    position: absolute;
+    /* position: absolute; */
     z-index: 1;
     left: 0;
-    transform: translateX(50%);
-    max-width: 50vw;
-    /* margin: auto; */
+    transform: translateX(-50%);
+    max-width: 240px;
 }
 .error {
     display: flex;
