@@ -24,12 +24,13 @@ main {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     height: 100vh;
+    padding: 0 10px;
 }
 header {
     display: grid;
     grid-column-start: 1;
     grid-column-end: 7;
-    padding: 0 20px;
+    /* padding: 0 20px; */
 }
 #locationForm {
     display: grid;
@@ -50,6 +51,7 @@ label {
 }
 .inputTextBtn {
     border: none;
+    border-radius: 999px;
     display: flex;
     align-items: flex-end;
     flex-grow: 1;
@@ -95,13 +97,11 @@ header p {
     grid-row: 1 / 2;
 }
 .main-weather-datas {
-    display: grid;
+    display: flex;
+    justify-content: center;
     grid-template-columns: 1fr 1fr;
     grid-column: 1 / 3;
     grid-row: 2 / 4;
-}
-.main-weather-datas img {
-    margin: auto;
 }
 .main-weather-datas span {
     display: block;
@@ -152,6 +152,10 @@ header p {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding-bottom: 10px;
+}
+.day img {
+    width: 100%;
 }
 
 .feeling-blue {
