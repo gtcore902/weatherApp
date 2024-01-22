@@ -1,23 +1,23 @@
 import API_KEY from './apiKey.js'
 let mainWeatherContainer = document.querySelector('.main-weather');
-let locationForm = document.getElementById("locationForm");
-let submitBtn = document.getElementById('submitBtn')
-let inputTextBtn = document.getElementById('inputTextBtn')
-let weatherIcon = document.querySelector('.current-weather-icon')
-let currentWeatherTemp = document.querySelector('.current-weather-temp')
-let currentWeatherSky = document.querySelector('.current-weather-sky')
-let currentWeatherWind = document.querySelector('.current-weather-wind')
-let currentWeatherHumidity = document.querySelector('.current-weather-humidity')
-let currentWeatherFeels = document.querySelector('.current-weather-feels')
-let errorText = document.querySelector('.error-text')
+let locationForm = document.getElementById("header__locationForm");
+let submitBtn = document.getElementById('form-elements__submitBtn')
+let inputTextBtn = document.getElementById('form-elements__inputTextBtn')
+let weatherIcon = document.querySelector('.main-weather__datas-current-weather-icon')
+let currentWeatherTemp = document.querySelector('.main-weather__datas-current-weather-temp')
+let currentWeatherSky = document.querySelector('.main-weather__current-weather-sky')
+let currentWeatherWind = document.querySelector('.details__current-weather-wind')
+let currentWeatherHumidity = document.querySelector('.details__current-weather-humidity')
+let currentWeatherFeels = document.querySelector('.details__current-weather-feels')
+let errorText = document.querySelector('.form__error-text')
 let localStorageLocation = localStorage.getItem('location')
 let userLocation;
-let currentDay = document.querySelector('.current-date')
+let currentDay = document.querySelector('.header__current-date')
 let lat, lon
-let forecastDayArrayContainersArray = [8, 16, 24, 32]
-let forecastDayArrayContainers = document.querySelectorAll('.day')
-forecastDayArrayContainers = Array.from(forecastDayArrayContainers)
 let nextDayContainer = document.querySelector('.next-days')
+let forecastDayArrayContainersArray = [8, 16, 24, 32]
+let forecastDayArrayContainers = document.querySelectorAll('.next-days__day')
+forecastDayArrayContainers = Array.from(forecastDayArrayContainers)
 let weatherConditionsConverter = {
     'clearsky': 'Dégagé',
     'fewclouds': 'Quelques nuages',
@@ -168,7 +168,7 @@ function getDisplayforecastDay(datas) {
     forecastDayArrayContainersArray.map((element) => {
         // Create container
         let dayContainer = document.createElement('div')
-        dayContainer.classList.add('day')
+        dayContainer.classList.add('next-days__day')
         // Create element p for name of the day
         let dayContainerDay = document.createElement('p')
         // Create new date for thios element

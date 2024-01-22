@@ -12,41 +12,42 @@
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
         integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" >
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer"
+        defer >
   </head>
   <body>
     <!-- <h1>Weather App</h1> -->
     <main>
       <header>
         <!-- <p>New York</p> -->
-        <form action="#" id="locationForm">
-          <p aria-hidden="true" class="error-text"></p>
-          <div class="form-elements">
+        <form action="#" id="header__locationForm">
+          <p aria-hidden="true" class="form__error-text"></p>
+          <div class="header__form-elements">
             <label for="location">
               <i class="fa-solid fa-magnifying-glass fa-xl"></i>
             </label>
-            <input type="text" name="location" id="inputTextBtn" class="inputTextBtn" placeholder="Ville"/>  
-            <button id="submitBtn" type="submit">
+            <input type="text" name="location" id="form-elements__inputTextBtn" class="form-elements__inputTextBtn" placeholder="Ville"/>  
+            <button id="form-elements__submitBtn" type="submit">
               <i class="fa-solid fa-arrow-right fa-2xl"></i>
             </button>
           </div>
         </form>
-    
-        <p class="current-date light-color"></p>
+        <p class="header__current-date light-color"></p>
       </header>
-      <div class="main-weather">
+      <section class="main-weather">
           <p>Aujourd'hui</p>
-          <div id="datas" class="main-weather-datas">
-            <img class="current-weather-icon" src="" alt="">
-            <span class="current-weather-temp"></span>
+          <div id="datas" class="main-weather__datas">
+            <img class="main-weather__datas-current-weather-icon" src="" alt="">
+            <span class="main-weather__datas-current-weather-temp"></span>
           </div>
-          <p class="current-weather-sky"></p>
-      </div>
-      <div class="details">
-        <div class="detail current-weather-wind"></div>
-        <div class="detail current-weather-humidity"></div>
-        <div class="detail current-weather-feels"></div>
-      </div>
+          <p class="main-weather__current-weather-sky"></p>
+      </section>
+      <section class="details">
+        <div class="detail details__current-weather-wind"></div>
+        <div class="detail details__current-weather-humidity"></div>
+        <div class="detail details__current-weather-feels"></div>
+      </section>
       <div class="next-days">
       </div>
     </main>
