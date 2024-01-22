@@ -152,12 +152,13 @@ function convertKelvinTemperature(KelvinTemperature) {
  * @param {object} datas 
  */
 function getCurrentDate(datas) {
-    let today = new Date(datas)
+    let today = new Date(datas * 1000)
     let day = dayConverter[today.getDay()]
     let dayNumber = today.getDate()
     let month = monthConverter[today.getMonth()]
     let year = today.getFullYear()
     currentDay.textContent = `${day} ${dayNumber} ${month} ${year}`
+    // console.log(`${day} ${dayNumber} ${month} ${year}`)
 }
 /**
  * Get and display data for the following days
@@ -198,17 +199,16 @@ async function getForecastWeatherDatas(lat, lon) {
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
         if (response.status === 404 || response.status === 400) {
-            // errorText.textContent = "Please enter valide location"
-            // console.log('erreur ...')
-            throw new Error("Error: La ville n'a pas été trouvé");
+            const returnErrorText = () => {
+                errorText.textContent = "Please enter valide location"
+                throw new Error("Error: La ville n'a pas été trouvé");
+            }
         }
         if (!response.ok) {
             throw new Error(response.status);
         }
         const datas = await response.json()
         console.log(datas)
-        // Get and display current date
-        getCurrentDate(datas.list[0].dt_txt)
         // Get and display data for the following days
         getDisplayforecastDay(datas)
     } catch (error) {
@@ -271,8 +271,9 @@ async function getWeatherDatas(userLocation) {
         }
         const datas = await response.json();
         console.log(datas);
-        // console.log(datas.weather[0].description);
-        // console.log('lat : ' + datas.coord.lat, 'lon : ' + datas.coord.lon);
+        // console.log(datas.dt)
+        // Get and display current date
+        getCurrentDate(datas.dt)
         let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
@@ -282,8 +283,8 @@ async function getWeatherDatas(userLocation) {
         displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
         displayCurrentWeatherFeels(datas.main.feels_like)
         // Get forcast datas
-        lat = datas.coord.lat // check if necessary if function below
-        lon = datas.coord.lon // check if necessary if function below
+        // lat = datas.coord.lat // check if necessary if function below
+        // lon = datas.coord.lon // check if necessary if function below
         getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
     } catch (error) {
         console.error(error);
