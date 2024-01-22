@@ -1,5 +1,4 @@
 import API_KEY from './apiKey.js'
-let mainWeatherContainer = document.querySelector('.main-weather');
 let locationForm = document.getElementById("header__locationForm");
 let submitBtn = document.getElementById('form-elements__submitBtn')
 let inputTextBtn = document.getElementById('form-elements__inputTextBtn')
@@ -13,7 +12,6 @@ let errorText = document.querySelector('.form__error-text')
 let localStorageLocation = localStorage.getItem('location')
 let userLocation;
 let currentDay = document.querySelector('.header__current-date')
-let lat, lon
 let nextDayContainer = document.querySelector('.next-days')
 let forecastDayArrayContainersArray = [8, 16, 24, 32]
 let forecastDayArrayContainers = document.querySelectorAll('.next-days__day')
