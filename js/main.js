@@ -260,7 +260,11 @@ async function getWeatherDatas(userLocation) {
         `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${API_KEY}`
         );
         if (response.status === 404 || response.status === 400) {
-            throw new Error("Error: La ville n'a pas été trouvé");
+            const returnErrorText = () => {
+                errorText.textContent = "Please enter valide location"
+                throw new Error("Error: La ville n'a pas été trouvé");
+            }
+            returnErrorText()
         }
         if (!response.ok) {
             throw new Error(response.status);
