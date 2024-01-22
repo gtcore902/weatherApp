@@ -241,7 +241,7 @@ function displayCurrentWeatherWind(wind) {
  * @param {number} humidity 
  */
 function displayCurrentWeatherHumidity(humidity) {
-    currentWeatherHumidity.innerHTML = `${humidity}% <span>Humidité</span>`
+    currentWeatherHumidity.innerHTML = `${humidity} % <span>Humidité</span>`
 }
 /**
  * Display current weather feels temperature
@@ -283,8 +283,8 @@ async function getWeatherDatas(userLocation) {
         displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
         displayCurrentWeatherFeels(datas.main.feels_like)
         // Get forcast datas
-        // lat = datas.coord.lat // check if necessary if function below
-        // lon = datas.coord.lon // check if necessary if function below
+        // lat = datas.coord.lat
+        // lon = datas.coord.lon
         getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
     } catch (error) {
         console.error(error);
