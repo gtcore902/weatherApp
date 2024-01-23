@@ -53,9 +53,8 @@ label {
     border: none;
     border-radius: 999px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     flex-grow: 1;
-    padding-top: 0;
     padding-left: 10px;
     height: 50px;
     font-size: 1.125em;
