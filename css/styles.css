@@ -159,10 +159,11 @@ header p {
 }
 
 .feeling-blue {
-    /* position: absolute; */
+    position: absolute;
     z-index: 1;
-    left: 0;
-    transform: translateX(-50%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: 240px;
 }
 .error {
