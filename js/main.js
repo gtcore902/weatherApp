@@ -1,4 +1,5 @@
 import API_KEY from './apiKey.js'
+import weatherConditionsConverter from './weatherConditionsConverter.js'
 let locationForm = document.getElementById("header__locationForm");
 let submitBtn = document.getElementById('form-elements__submitBtn')
 let inputTextBtn = document.getElementById('form-elements__inputTextBtn')
@@ -16,21 +17,6 @@ let nextDayContainer = document.querySelector('.next-days')
 let forecastDayArrayContainersArray = [8, 16, 24, 32]
 let forecastDayArrayContainers = document.querySelectorAll('.next-days__day')
 forecastDayArrayContainers = Array.from(forecastDayArrayContainers)
-let weatherConditionsConverter = {
-    'clearsky': 'Dégagé',
-    'fewclouds': 'Quelques nuages',
-    'scatteredclouds': 'nuages ​​dispersés',
-    'overcastclouds': 'Couvert',
-    'brokenclouds': 'Peu nuageux',
-    'showerrain': 'Fortes pluies',
-    'rain': 'Pluie',
-    'lightrain': 'Légère pluie',
-    'thunderstorm': 'Orages',
-    'snow': 'Neige',
-    'lightsnow': 'Neige légère',
-    'mist': 'Brouillard',
-    'drizzle': 'Bruine'
-}
 let dayConverter = {
     0: 'Dimanche',
     1: 'Lundi',
@@ -129,18 +115,12 @@ async function launchSystem() {
   }
 /**
  * function to convert current weather sky
- * @param {string} englishCurrentWeatherSky
+ * @param {number} id
  * @returns string
  */
-function convertCurrentWeatherSky(englishCurrentWeatherSky) {
-    if (englishCurrentWeatherSky.match(' ')) {
-        let concatEnglishCurrentWeatherSky = englishCurrentWeatherSky.replace(' ','')
-        let conditionsTranslated = weatherConditionsConverter[concatEnglishCurrentWeatherSky]
-        return conditionsTranslated
-    }
-    return weatherConditionsConverter[englishCurrentWeatherSky]
+function convertCurrentWeatherSky(id) {
+    return weatherConditionsConverter[id]
 }
-
 /**
  * Convert Kelvin temperatures to celsius
  * @param {number} KelvinTemperature 
@@ -223,8 +203,9 @@ async function getForecastWeatherDatas(lat, lon) {
  * Display current weather sky
  * @param {string} weatherSky 
  */
-function displayCurrentWeatherSky(weatherSky) {
-    currentWeatherSky.innerHTML = convertCurrentWeatherSky(weatherSky)
+function displayCurrentWeatherSky(id) {
+    console.log(id)
+    currentWeatherSky.innerHTML = convertCurrentWeatherSky(id)
 }
 /**
  * Display current weather temperature
@@ -282,7 +263,7 @@ async function getWeatherDatas(userLocation) {
         let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
         weatherIcon.alt = `Icon ${datas.weather[0].description}`
-        displayCurrentWeatherSky(datas.weather[0].description)
+        displayCurrentWeatherSky(datas.weather[0].id)
         displayCurrentWeatherTemp(convertedCelsiusTemp)
         displayCurrentWeatherHumidity(datas.main.humidity)
         displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
