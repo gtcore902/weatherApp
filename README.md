@@ -8,7 +8,7 @@ The programming language used is ![javascript](https://shields.io/badge/JavaScri
 
 You can visit the website :arrow_right: [openweathermap.org/api](https://openweathermap.org/api) to obtain your free API key and create your own weather application using this repository.
 
-[Simplre Weather App](https://gtcore902.github.io/weatherApp/)
+[Simple Weather App](https://gtcore902.github.io/weatherApp/)
 
 ## Contributing
 You are all welcome :sunglasses:
