@@ -24,6 +24,7 @@ let weatherConditionsConverter = {
     'brokenclouds': 'Peu nuageux',
     'showerrain': 'Fortes pluies',
     'rain': 'Pluie',
+    'lightrain': 'Légère pluie',
     'thunderstorm': 'Orages',
     'snow': 'Neige',
     'lightsnow': 'Neige légère',
