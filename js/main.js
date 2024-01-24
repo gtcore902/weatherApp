@@ -28,6 +28,7 @@ let weatherConditionsConverter = {
     'snow': 'Neige',
     'lightsnow': 'Neige légère',
     'mist': 'Brouillard',
+    'drizzle': 'Bruine'
 }
 let dayConverter = {
     0: 'Dimanche',
