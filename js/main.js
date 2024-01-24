@@ -63,7 +63,7 @@ async function setStorageSystem() {
         // .then(getForecastWeatherDatas(lat, lon, API_KEY))
             .then(inputTextBtn.value = localStorageLocation)
     } else if (localStorageLocation === null) {
-        // errorText.textContent = "Please enter valide location"
+        inputTextBtn.placeholder = "Please enter location"
         let errorImg = document.createElement('img')
         errorImg.src = 'images/undraw_happy_music_g6wc.svg'
         errorImg.classList.add('feeling-blue')
@@ -113,12 +113,15 @@ async function launchSystem() {
         if (checkEntries(userLocation)) {
             localStorage.setItem('location', userLocation)
             errorText.textContent = ""
+            inputTextBtn.classList.remove("on-error")
             // getLocationName(userLocation)
             getWeatherDatas(userLocation)
                 .then(submitBtn.style.visibility = 'hidden')
                     // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
             errorText.textContent = "Please enter valide location"
+            inputTextBtn.classList.add("on-error")
+            // inputTextBtn.style.color = "blue"
         }
     });
   }
@@ -199,6 +202,7 @@ async function getForecastWeatherDatas(lat, lon) {
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
                 errorText.textContent = "Please enter valide location"
+                inputTextBtn.classList.add("on-error")
                 throw new Error("Error: La ville n'a pas été trouvé");
             }
         }
@@ -260,6 +264,7 @@ async function getWeatherDatas(userLocation) {
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
                 errorText.textContent = "Please enter valide location"
+                inputTextBtn.classList.add("on-error")
                 throw new Error("Error: La ville n'a pas été trouvé");
             }
             returnErrorText()
