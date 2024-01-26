@@ -107,7 +107,6 @@ function updatePageTitle(userLocation) {
  function checkEntries(userLocation) {
     let regex = new RegExp('[a-zA-Z]')
     userLocation = userLocation.trim()
-    // userLocation = capitalize(userLocation)
     if (regex.test(userLocation)) {
         return true
     }
@@ -120,7 +119,6 @@ async function launchSystem() {
         event.preventDefault();
         userLocation = inputTextBtn.value;
         userLocation = capitalize(userLocation)
-        // console.log(inputTextBtn.value);
         // Reset container for the following days
         nextDayContainer.innerHTML = ''
         // check entries
@@ -284,23 +282,27 @@ async function getWeatherDatas(userLocation) {
         if (!response.ok) {
             throw new Error(response.status);
         }
-        const datas = await response.json();
-        console.log(datas);
-        // console.log(datas.dt)
-        // Get and display current date
-        getCurrentDate(datas.dt)
-        let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
-        weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
-        weatherIcon.alt = datas.weather[0].description
-        displayCurrentWeatherSky(datas.weather[0].id)
-        displayCurrentWeatherTemp(convertedCelsiusTemp)
-        displayCurrentWeatherHumidity(datas.main.humidity)
-        displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
-        displayCurrentWeatherFeels(datas.main.feels_like)
-        // Get forcast datas
-        // lat = datas.coord.lat
-        // lon = datas.coord.lon
-        getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
+        if (response.status === 200) {
+            const datas = await response.json();
+            console.log(datas);
+            // console.log(datas.dt)
+            // Get and display current date
+            // launchSystem()
+            getCurrentDate(datas.dt)
+            let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
+            weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
+            weatherIcon.alt = datas.weather[0].description
+            displayCurrentWeatherSky(datas.weather[0].id)
+            displayCurrentWeatherTemp(convertedCelsiusTemp)
+            displayCurrentWeatherHumidity(datas.main.humidity)
+            displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
+            displayCurrentWeatherFeels(datas.main.feels_like)
+            // Get forcast datas
+            // lat = datas.coord.lat
+            // lon = datas.coord.lon
+            getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
+    
+        }
     } catch (error) {
         console.error(error);
     }
