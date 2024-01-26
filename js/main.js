@@ -50,6 +50,7 @@ async function setStorageSystem() {
         await removeErrorImg()
         .then(getWeatherDatas(localStorageLocation))
             .then(updateh1(localStorageLocation))
+                .then(updatePageTitle(localStorageLocation))
         // .then(getForecastWeatherDatas(lat, lon, API_KEY))
             .then(inputTextBtn.value = localStorageLocation)
     } else if (localStorageLocation === null) {
@@ -79,17 +80,24 @@ function showSubmitButton () {
  }
 /**
  * Set user location to capitalize
+ * @param {string} userLocation 
+ * @returns string
  */
 function capitalize(userLocation) {
+    console.log(typeof userLocation)
     // console.log(userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase())
     return userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase()
 }
 /**
  * Update h1 with correct location
+ * @param {string} userLocation 
  */
 function updateh1(userLocation) {
     h1Title.textContent = ""
     h1Title.textContent += `Aujourd'hui à ${userLocation}`
+}
+function updatePageTitle(userLocation) {
+    document.title = `Weather condition at ${userLocation}`
 }
  /**
   * Check if user location and remove spaces
@@ -124,6 +132,7 @@ async function launchSystem() {
             getWeatherDatas(userLocation)
                 .then(submitBtn.style.visibility = 'hidden')
                     .then(updateh1(userLocation))
+                        .then(updatePageTitle(userLocation))
                     // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
             errorText.textContent = "Please enter valide location"
