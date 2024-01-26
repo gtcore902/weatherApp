@@ -51,7 +51,7 @@ async function setStorageSystem() {
         .then(getWeatherDatas(localStorageLocation))
             .then(inputTextBtn.value = capitalize(localStorageLocation))
     } else if (localStorageLocation === null) {
-        inputTextBtn.placeholder = "Please enter location"
+        inputTextBtn.placeholder = "Veuillez saisir une ville..."
         let errorImg = document.createElement('img')
         errorImg.src = 'images/undraw_happy_music_g6wc.svg'
         errorImg.alt = 'Avatar waiting for instruction'
@@ -129,7 +129,7 @@ async function launchSystem() {
                         // .then(updatePageTitle(userLocation))
                     // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
-            errorText.textContent = "Please enter valide location"
+            errorText.textContent = "Veuillez saisir une localité valide"
             inputTextBtn.classList.add("on-error")
             // inputTextBtn.style.color = "blue"
         }
@@ -206,7 +206,7 @@ async function getForecastWeatherDatas(lat, lon) {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
-                errorText.textContent = "Please enter valide location"
+                errorText.textContent = "Veuillez saisir une localité valide"
                 inputTextBtn.classList.add("on-error")
                 throw new Error("Error: La ville n'a pas été trouvé");
             }
@@ -271,7 +271,7 @@ async function getWeatherDatas(userLocation) {
             const returnErrorText = () => {
                 localStorage.removeItem('location');
                 // setStorageSystem()
-                errorText.textContent = "Please enter valide location"
+                errorText.textContent = "Veuillez saisir une localité valide"
                 inputTextBtn.classList.add("on-error")
                 throw new Error("Error: La ville n'a pas été trouvé");
             }

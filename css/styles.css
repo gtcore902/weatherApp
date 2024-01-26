@@ -58,7 +58,7 @@ label {
     flex-grow: 1;
     padding: 5px 15px;
     font-size: 1rem;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     color: black;
 }
 .on-error {
@@ -184,14 +184,8 @@ h1 {
 * {
     /* outline: solid 4px red; */
 }
-/* @media all and (orientation: landscape) {
+@media (max-height: 565px) {
     main {
-        min-height: auto;
         height: auto;
     }
-} */
-/* @media all and (orientation: portrait) {
-    main {
-        height: 100dvh;
-    }
-} */
+}
