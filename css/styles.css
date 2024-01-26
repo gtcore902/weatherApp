@@ -184,8 +184,14 @@ h1 {
 * {
     /* outline: solid 4px red; */
 }
-@media all and (orientation: landscape) {
+/* @media all and (orientation: landscape) {
     main {
+        min-height: auto;
         height: auto;
     }
-}
+} */
+/* @media all and (orientation: portrait) {
+    main {
+        height: 100dvh;
+    }
+} */

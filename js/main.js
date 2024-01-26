@@ -94,7 +94,7 @@ function updateh1(userLocation) {
     h1Title.textContent += `Aujourd'hui à ${userLocation}`
 }
 function updatePageTitle(userLocation) {
-    document.title = `Weather condition at ${userLocation}`
+    document.title = `Conditions météorologiques à ${userLocation}`
 }
  /**
   * Check if user location and remove spaces
