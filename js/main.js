@@ -54,6 +54,7 @@ async function setStorageSystem() {
         inputTextBtn.placeholder = "Please enter location"
         let errorImg = document.createElement('img')
         errorImg.src = 'images/undraw_happy_music_g6wc.svg'
+        errorImg.alt = 'Avatar waiting for instruction'
         errorImg.classList.add('feeling-blue')
         currentWeatherTemp.appendChild(errorImg)
     }
@@ -161,6 +162,7 @@ function getDisplayforecastDay(datas) {
         // Create element img for weather icon
         let dayContainerWeatherImg = document.createElement('img') 
         dayContainerWeatherImg.src = `https://openweathermap.org/img/wn/${datas.list[element].weather[0].icon}@2x.png`
+        dayContainerWeatherImg.alt = datas.list[element].weather[0].description
         // Create element p for temperature of the day
         let dayContainerTemp = document.createElement('p')
         dayContainerTemp.classList.add('temp-day')
@@ -262,7 +264,7 @@ async function getWeatherDatas(userLocation) {
         getCurrentDate(datas.dt)
         let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
         weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
-        weatherIcon.alt = `Icon ${datas.weather[0].description}`
+        weatherIcon.alt = datas.weather[0].description
         displayCurrentWeatherSky(datas.weather[0].id)
         displayCurrentWeatherTemp(convertedCelsiusTemp)
         displayCurrentWeatherHumidity(datas.main.humidity)

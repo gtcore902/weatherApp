@@ -36,6 +36,8 @@ header {
     display: grid;
     grid-template-rows: 1fr 1fr ;
     align-self: baseline;
+    padding-top: 10px;
+    font-size: 1.125rem;
 }
 .form__error-text {
     display: flex;
@@ -54,15 +56,16 @@ label {
     width: 10%;
 }
 .form-elements__inputTextBtn {
-    border: solid 1px transparent;
+    border: solid 1px var(--light-color);
     border-radius: 999px;
     display: flex;
     align-items: center;
     flex-grow: 1;
-    padding-left: 15px;
-    height: 50px;
+    padding: 15px;
+    /* height: 50px; */
     font-size: 1.125em;
-    font-weight: 700;
+    text-transform: capitalize;
+    /* font-weight: 700; */
     color: black;
     margin-left: 5px;
 }
@@ -87,7 +90,7 @@ label {
 }
 header p {
     padding-top: 5px;
-    font-size: 1.125em;
+    /* font-size: 1.125em; */
 }
 .main-weather {
     grid-column-start: 1;
@@ -99,7 +102,7 @@ header p {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr;
 }
-.main-weather p:first-of-type {
+h1 {
     text-align: center;
     font-size: 1.5em;
     font-weight: 700;
@@ -156,6 +159,7 @@ header p {
     grid-column-end: 7;
     grid-row-start: 6;
     grid-row-end: 7;
+    padding-bottom: 10px;
 }
 .next-days__day {
     display: flex;
@@ -166,6 +170,9 @@ header p {
 }
 .next-days__day img {
     width: 100%;
+}
+.next-days__day p {
+    font-weight: 700;
 }
 
 .feeling-blue {
