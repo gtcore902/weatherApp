@@ -49,10 +49,7 @@ async function setStorageSystem() {
     if (localStorageLocation !== null) {
         await removeErrorImg()
         .then(getWeatherDatas(localStorageLocation))
-            .then(updateh1(localStorageLocation))
-                .then(updatePageTitle(localStorageLocation))
-        // .then(getForecastWeatherDatas(lat, lon, API_KEY))
-            .then(inputTextBtn.value = localStorageLocation)
+            .then(inputTextBtn.value = capitalize(localStorageLocation))
     } else if (localStorageLocation === null) {
         inputTextBtn.placeholder = "Please enter location"
         let errorImg = document.createElement('img')
@@ -123,14 +120,13 @@ async function launchSystem() {
         nextDayContainer.innerHTML = ''
         // check entries
         if (checkEntries(userLocation)) {
-            localStorage.setItem('location', userLocation)
-            errorText.textContent = ""
-            inputTextBtn.classList.remove("on-error")
-            // getLocationName(userLocation)
+            // localStorage.setItem('location', userLocation)
+            // errorText.textContent = ""
+            // inputTextBtn.classList.remove("on-error")
             getWeatherDatas(userLocation)
                 .then(submitBtn.style.visibility = 'hidden')
-                    .then(updateh1(userLocation))
-                        .then(updatePageTitle(userLocation))
+                    // .then(updateh1(userLocation))
+                        // .then(updatePageTitle(userLocation))
                     // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
             errorText.textContent = "Please enter valide location"
@@ -273,6 +269,8 @@ async function getWeatherDatas(userLocation) {
         );
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
+                localStorage.removeItem('location');
+                // setStorageSystem()
                 errorText.textContent = "Please enter valide location"
                 inputTextBtn.classList.add("on-error")
                 throw new Error("Error: La ville n'a pas été trouvé");
@@ -283,11 +281,14 @@ async function getWeatherDatas(userLocation) {
             throw new Error(response.status);
         }
         if (response.status === 200) {
+            console.log(response.status)
             const datas = await response.json();
             console.log(datas);
-            // console.log(datas.dt)
+            localStorage.setItem('location', userLocation)
+            errorText.textContent = ""
+            inputTextBtn.classList.remove("on-error")
+            inputTextBtn.value = capitalize(userLocation)
             // Get and display current date
-            // launchSystem()
             getCurrentDate(datas.dt)
             let convertedCelsiusTemp = convertKelvinTemperature(datas.main.temp)
             weatherIcon.src = `https://openweathermap.org/img/wn/${datas.weather[0].icon}@2x.png`;
@@ -298,9 +299,9 @@ async function getWeatherDatas(userLocation) {
             displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
             displayCurrentWeatherFeels(datas.main.feels_like)
             // Get forcast datas
-            // lat = datas.coord.lat
-            // lon = datas.coord.lon
             getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
+            updateh1(userLocation)
+            updatePageTitle(userLocation)
     
         }
     } catch (error) {
