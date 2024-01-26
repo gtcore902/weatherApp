@@ -12,6 +12,7 @@ let currentWeatherFeels = document.querySelector('.details__current-weather-feel
 let errorText = document.querySelector('.form__error-text')
 let localStorageLocation = localStorage.getItem('location')
 let userLocation;
+let h1Title = document.querySelector('h1')
 let currentDay = document.querySelector('.header__current-date')
 let nextDayContainer = document.querySelector('.next-days')
 let forecastDayArrayContainersArray = [8, 16, 24, 32]
@@ -48,6 +49,7 @@ async function setStorageSystem() {
     if (localStorageLocation !== null) {
         await removeErrorImg()
         .then(getWeatherDatas(localStorageLocation))
+            .then(updateh1(localStorageLocation))
         // .then(getForecastWeatherDatas(lat, lon, API_KEY))
             .then(inputTextBtn.value = localStorageLocation)
     } else if (localStorageLocation === null) {
@@ -75,7 +77,20 @@ function showSubmitButton () {
         submitBtn.style.visibility = 'visible';
     })
  }
-
+/**
+ * Set user location to capitalize
+ */
+function capitalize(userLocation) {
+    // console.log(userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase())
+    return userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase()
+}
+/**
+ * Update h1 with correct location
+ */
+function updateh1(userLocation) {
+    h1Title.textContent = ""
+    h1Title.textContent += `Aujourd'hui à ${userLocation}`
+}
  /**
   * Check if user location and remove spaces
   * @param {string} userLocation 
@@ -84,6 +99,7 @@ function showSubmitButton () {
  function checkEntries(userLocation) {
     let regex = new RegExp('[a-zA-Z]')
     userLocation = userLocation.trim()
+    // userLocation = capitalize(userLocation)
     if (regex.test(userLocation)) {
         return true
     }
@@ -95,7 +111,8 @@ async function launchSystem() {
     locationForm.addEventListener("submit", (event) => {
         event.preventDefault();
         userLocation = inputTextBtn.value;
-        console.log(inputTextBtn.value);
+        userLocation = capitalize(userLocation)
+        // console.log(inputTextBtn.value);
         // Reset container for the following days
         nextDayContainer.innerHTML = ''
         // check entries
@@ -106,6 +123,7 @@ async function launchSystem() {
             // getLocationName(userLocation)
             getWeatherDatas(userLocation)
                 .then(submitBtn.style.visibility = 'hidden')
+                    .then(updateh1(userLocation))
                     // .then(getForecastWeatherDatas(lat, lon, API_KEY))
         } else {
             errorText.textContent = "Please enter valide location"
