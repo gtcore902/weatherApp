@@ -1,5 +1,8 @@
-import API_KEY from './apiKey.js'
+import API_KEY_WEATHER from './apiKeyWeather.js'
+import apiKeyAutocomplete from './apiKeyAutocomplete.js'
+import getAutoCompleteAdresses from './autoComplete.js'
 import weatherConditionsConverter from './weatherConditionsConverter.js'
+
 let locationForm = document.getElementById("header__locationForm");
 let submitBtn = document.getElementById('form-elements__submitBtn')
 let inputTextBtn = document.getElementById('form-elements__inputTextBtn')
@@ -68,11 +71,23 @@ async function removeErrorImg() {
     }
 }
 /**
- * Set visibility of submit button
+ * Set visibility of submit button RENAME AND CHANGE THIS FUNCTION !!!!
  */
 function showSubmitButton () {
     inputTextBtn.addEventListener('input', () => {
         submitBtn.style.visibility = 'visible';
+        // if input value.length > on input 
+        if (inputTextBtn.value.length >= 3) {
+            console.log(inputTextBtn.value)
+            getAutoCompleteAdresses(apiKeyAutocomplete, inputTextBtn.value)
+                .then((datasAdresses) => {
+                    console.log(datasAdresses)
+                    console.log(datasAdresses.features.length)
+                    datasAdresses.features.map((adress) => {
+                        console.log(`${adress.properties.city}, ${adress.properties.country}`)
+                    })
+                })
+        }
     })
  }
 /**
@@ -127,7 +142,7 @@ async function launchSystem() {
                 .then(submitBtn.style.visibility = 'hidden')
                     // .then(updateh1(userLocation))
                         // .then(updatePageTitle(userLocation))
-                    // .then(getForecastWeatherDatas(lat, lon, API_KEY))
+                    // .then(getForecastWeatherDatas(lat, lon, API_KEY_WEATHER))
         } else {
             errorText.textContent = "Veuillez saisir une localité valide"
             inputTextBtn.classList.add("on-error")
@@ -203,7 +218,7 @@ function getDisplayforecastDay(datas) {
  */
 async function getForecastWeatherDatas(lat, lon) {
     try {
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY_WEATHER}`)
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
                 errorText.textContent = "Veuillez saisir une localité valide"
@@ -265,7 +280,7 @@ function displayCurrentWeatherFeels(feels) {
 async function getWeatherDatas(userLocation) {
     try {
         const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${userLocation}&appid=${API_KEY_WEATHER}`
         );
         if (response.status === 404 || response.status === 400) {
             const returnErrorText = () => {
@@ -299,7 +314,7 @@ async function getWeatherDatas(userLocation) {
             displayCurrentWeatherWind(Math.round(datas.wind.speed*3.6))
             displayCurrentWeatherFeels(datas.main.feels_like)
             // Get forcast datas
-            getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY)
+            getForecastWeatherDatas(datas.coord.lat, datas.coord.lon, API_KEY_WEATHER)
             updateh1(userLocation)
             updatePageTitle(userLocation)
     
