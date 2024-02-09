@@ -6,50 +6,68 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Weather condition</title>
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/styles.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
-        integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
-        crossorigin="anonymous" 
-        referrerpolicy="no-referrer"
-        defer >
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+      defer
+    />
   </head>
   <body>
     <main>
       <header>
         <form action="#" id="header__locationForm">
           <div class="header__form-elements">
-            <label for="form-elements__inputTextBtn">
-              Ville
-            </label>
-            <input type="text" name="location" id="form-elements__inputTextBtn" class="form-elements__inputTextBtn" placeholder="Veuillez saisir une ville..."/>  
-            <button id="form-elements__submitBtn" type="submit" aria-label="submit">
+            <label for="form-elements__inputTextBtn"> Ville </label>
+            <input
+              type="text"
+              name="location"
+              id="form-elements__inputTextBtn"
+              class="form-elements__inputTextBtn"
+              placeholder="Veuillez saisir une ville..."
+            />
+            <button
+              id="form-elements__submitBtn"
+              type="submit"
+              aria-label="submit"
+            >
               <i class="fa-solid fa-arrow-right fa-2xl"></i>
             </button>
           </div>
           <p aria-hidden="true" class="form__error-text"></p>
+          <div class="suggestions"></div>
         </form>
         <p class="header__current-date light-color"></p>
       </header>
       <section class="main-weather">
-          <h1></h1>
-          <div id="datas" class="main-weather__datas">
-            <img class="main-weather__datas-current-weather-icon" src="" alt="">
-            <span class="main-weather__datas-current-weather-temp"></span>
-          </div>
-          <p class="main-weather__current-weather-sky"></p>
+        <h1></h1>
+        <div id="datas" class="main-weather__datas">
+          <img class="main-weather__datas-current-weather-icon" src="" alt="" />
+          <span class="main-weather__datas-current-weather-temp"></span>
+        </div>
+        <p class="main-weather__current-weather-sky"></p>
       </section>
       <section class="details">
         <div class="detail details__current-weather-wind"></div>
         <div class="detail details__current-weather-humidity"></div>
         <div class="detail details__current-weather-feels"></div>
       </section>
-      <div class="next-days">
-      </div>
+      <div class="next-days"></div>
     </main>
     <script type="module" src="js/main.js"></script>
-    <script src="https://kit.fontawesome.com/c0a3d24aca.js" crossorigin="anonymous" defer></script>
+    <script
+      src="https://kit.fontawesome.com/c0a3d24aca.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
   </body>
 </html>

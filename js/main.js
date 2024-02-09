@@ -85,6 +85,17 @@ async function removeErrorImg() {
     document.querySelector('.feeling-blue').remove();
   }
 }
+
+function createSuggestedElements(datasAdresses) {
+  console.log(datasAdresses.features);
+  document.querySelector('.suggestions').innerHTML = '';
+  datasAdresses.features.map((element) => {
+    const link = document.createElement('li');
+    link.classList.add('suggestions__links');
+    link.textContent = `${element.properties.city}, ${element.properties.country}`;
+    document.querySelector('.suggestions').appendChild(link);
+  });
+}
 /**
  * Set visibility of submit button RENAME AND CHANGE THIS FUNCTION !!!!
  */
@@ -96,13 +107,14 @@ function showSubmitButton() {
       console.log(inputTextBtn.value);
       getAutoCompleteAdresses(apiKeyAutocomplete, inputTextBtn.value).then(
         (datasAdresses) => {
-          console.log(datasAdresses);
-          console.log(datasAdresses.features.length);
-          datasAdresses.features.map((adress) => {
-            console.log(
-              `${adress.properties.city}, ${adress.properties.country}`
-            );
-          });
+          // console.log(datasAdresses);
+          // console.log(datasAdresses.features.length);
+          createSuggestedElements(datasAdresses);
+          // datasAdresses.features.map((adress) => {
+          //   console.log(
+          //     `${adress.properties.city}, ${adress.properties.country}`
+          //   );
+          // });
         }
       );
     }
