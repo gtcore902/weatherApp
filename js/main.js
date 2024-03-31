@@ -7,7 +7,6 @@ import getAutoCompleteAdresses from './autoComplete.js';
 import weatherConditionsConverter from './weatherConditionsConverter.js';
 
 let locationForm = document.getElementById('header__locationForm');
-let submitBtn = document.getElementById('form-elements__submitBtn');
 let inputTextBtn = document.getElementById('form-elements__inputTextBtn');
 let weatherIcon = document.querySelector(
   '.main-weather__datas-current-weather-icon'
@@ -93,6 +92,13 @@ function createSuggestedElements(datasAdresses) {
     const link = document.createElement('li');
     link.classList.add('suggestions__links');
     link.textContent = `${element.properties.city}, ${element.properties.country}`;
+    link.addEventListener('click', () => {
+      userLocation = element.properties.city;
+      console.log(userLocation);
+      launchSystem(element.properties.city).then(() => {
+        document.querySelector('.suggestions').innerHTML = '';
+      });
+    });
     document.querySelector('.suggestions').appendChild(link);
   });
 }
@@ -101,20 +107,12 @@ function createSuggestedElements(datasAdresses) {
  */
 function showSubmitButton() {
   inputTextBtn.addEventListener('input', () => {
-    submitBtn.style.visibility = 'visible';
     // if input value.length > on input
     if (inputTextBtn.value.length >= 3) {
       console.log(inputTextBtn.value);
       getAutoCompleteAdresses(apiKeyAutocomplete, inputTextBtn.value).then(
         (datasAdresses) => {
-          // console.log(datasAdresses);
-          // console.log(datasAdresses.features.length);
           createSuggestedElements(datasAdresses);
-          // datasAdresses.features.map((adress) => {
-          //   console.log(
-          //     `${adress.properties.city}, ${adress.properties.country}`
-          //   );
-          // });
         }
       );
     }
@@ -127,7 +125,6 @@ function showSubmitButton() {
  */
 function capitalize(userLocation) {
   console.log(typeof userLocation);
-  // console.log(userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase())
   return (
     userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase()
   );
@@ -158,31 +155,36 @@ function checkEntries(userLocation) {
 /**
  * Get user location entry from form and launch fetch datas
  */
-async function launchSystem() {
-  locationForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    userLocation = inputTextBtn.value;
-    userLocation = capitalize(userLocation);
-    // Reset container for the following days
-    nextDayContainer.innerHTML = '';
-    // check entries
-    if (checkEntries(userLocation)) {
-      // localStorage.setItem('location', userLocation)
-      // errorText.textContent = ""
-      // inputTextBtn.classList.remove("on-error")
-      getWeatherDatas(userLocation).then(
-        (submitBtn.style.visibility = 'hidden')
-      );
-      // .then(updateh1(userLocation))
-      // .then(updatePageTitle(userLocation))
-      // .then(getForecastWeatherDatas(lat, lon, API_KEY_WEATHER))
-    } else {
-      errorText.textContent = 'Veuillez saisir une localité valide';
-      inputTextBtn.classList.add('on-error');
-      // inputTextBtn.style.color = "blue"
-    }
-  });
+async function launchSystem(userLocation) {
+  // event.preventDefault();
+  // Reset container for the following days
+  nextDayContainer.innerHTML = '';
+  // check entries
+  if (checkEntries(userLocation)) {
+    getWeatherDatas(userLocation);
+  } else {
+    errorText.textContent = 'Veuillez saisir une localité valide';
+    inputTextBtn.classList.add('on-error');
+  }
 }
+// async function launchSystem() {
+//   locationForm.addEventListener('submit', (event) => {
+//     event.preventDefault();
+//     userLocation = inputTextBtn.value;
+//     userLocation = capitalize(userLocation);
+//     // Reset container for the following days
+//     nextDayContainer.innerHTML = '';
+//     // check entries
+//     if (checkEntries(userLocation)) {
+//       getWeatherDatas(userLocation).then(
+//         (submitBtn.style.visibility = 'hidden')
+//       );
+//     } else {
+//       errorText.textContent = 'Veuillez saisir une localité valide';
+//       inputTextBtn.classList.add('on-error');
+//     }
+//   });
+// }
 /**
  * function to convert current weather sky
  * @param {number} id
@@ -197,7 +199,6 @@ function convertCurrentWeatherSky(id) {
  * @returns number
  */
 function convertKelvinTemperature(KelvinTemperature) {
-  // return Math.round((Math.floor(KelvinTemperature) - 273.15).toFixed(2))
   return Math.floor(KelvinTemperature - 273.15);
 }
 /**
@@ -371,5 +372,5 @@ async function getWeatherDatas(userLocation) {
  * Launch weather system
  */
 showSubmitButton();
-launchSystem();
+// launchSystem();
 setStorageSystem();
