@@ -14,7 +14,7 @@ const getAutoCompleteAdresses = async function getAutoCompleteAdresses(
 ) {
   try {
     const response = await fetch(
-      `https://api.geoapify.com/v1/geocode/autocomplete?text=${text}&type=city&apiKey=${apiKeyAutocomplete}`
+      `https://api.geoapify.com/v1/geocode/autocomplete?text=${text}&limit=10&type=city&apiKey=${apiKeyAutocomplete}`
     );
     if (response.status === 404 || response.status === 400) {
       const returnErrorText = () => {
