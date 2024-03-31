@@ -7,7 +7,10 @@ import getAutoCompleteAdresses from './autoComplete.js';
 import weatherConditionsConverter from './weatherConditionsConverter.js';
 
 let locationForm = document.getElementById('header__locationForm');
-let inputTextBtn = document.getElementById('form-elements__inputTextBtn');
+let inputTextBtn = document.getElementById(
+  'form-elements__inputs__inputTextBtn'
+);
+let deleteBtn = document.querySelector('.form-elements__inputs__deleteBtn');
 let weatherIcon = document.querySelector(
   '.main-weather__datas-current-weather-icon'
 );
@@ -105,7 +108,7 @@ function createSuggestedElements(datasAdresses) {
 /**
  * Set visibility of submit button RENAME AND CHANGE THIS FUNCTION !!!!
  */
-function showSubmitButton() {
+function inputListener() {
   inputTextBtn.addEventListener('input', () => {
     // if input value.length > on input
     if (inputTextBtn.value.length >= 3) {
@@ -118,6 +121,17 @@ function showSubmitButton() {
     }
   });
 }
+inputTextBtn.addEventListener('focus', () => {
+  if (inputTextBtn.value.length > 0) {
+    deleteBtn.style.display = 'block';
+  } else if (inputTextBtn.value === '') {
+    deleteBtn.style.display = 'none';
+  }
+});
+deleteBtn.addEventListener('click', () => {
+  inputTextBtn.value = '';
+  deleteBtn.style.display = 'none';
+});
 /**
  * Set user location to capitalize
  * @param {string} userLocation
@@ -371,6 +385,6 @@ async function getWeatherDatas(userLocation) {
 /**
  * Launch weather system
  */
-showSubmitButton();
+inputListener();
 // launchSystem();
 setStorageSystem();

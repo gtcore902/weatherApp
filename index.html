@@ -27,21 +27,29 @@
       <header>
         <form action="#" id="header__locationForm" autocomplete="off">
           <div class="header__form-elements">
-            <label for="form-elements__inputTextBtn"> Ville </label>
-            <input
-              type="text"
-              name="location"
-              id="form-elements__inputTextBtn"
-              class="form-elements__inputTextBtn"
-              placeholder="Veuillez saisir une ville..."
-            />
-            <button
+            <label
+              aria-label="Ville"
+              for="form-elements__inputs__inputTextBtn"
+            ></label>
+            <div class="form-elements__inputs">
+              <input
+                type="text"
+                name="location"
+                id="form-elements__inputs__inputTextBtn"
+                class="form-elements__inputs__inputTextBtn"
+                placeholder="Recherchez une ville..."
+              />
+              <button class="form-elements__inputs__deleteBtn" type="button">
+                &#10005;
+              </button>
+            </div>
+            <!-- <button
               id="form-elements__submitBtn"
               type="submit"
               aria-label="submit"
             >
               <i class="fa-solid fa-arrow-right fa-2xl"></i>
-            </button>
+            </button> -->
           </div>
           <p aria-hidden="true" class="form__error-text"></p>
           <div class="suggestions"></div>
