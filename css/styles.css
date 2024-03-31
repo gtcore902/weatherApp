@@ -61,6 +61,7 @@ header {
   font-size: 17px;
   border: none;
   background: none;
+  cursor: pointer;
 }
 .form-elements__inputs__inputTextBtn {
   border: solid 2px var(--light-color);
@@ -68,7 +69,7 @@ header {
   display: flex;
   align-items: center;
   flex-grow: 1;
-  padding: 5px 15px;
+  padding: 8px 15px;
   font-size: 1rem;
   /* color: black; */
   color: var(--light-color);
@@ -90,14 +91,19 @@ header {
 .suggestions {
   position: absolute;
   top: 50px;
-  left: 35px;
-  right: 35px;
-  background: grey;
+  /* left: 2vw;
+  right: 2vw; */
+  width: 100%;
+  background: #f2f2f1;
   z-index: 1;
 }
 .suggestions__links {
   list-style-type: none;
   padding: 5px 10px;
+  cursor: pointer;
+}
+.suggestions__links:hover {
+  background-color: lightgrey;
 }
 .main-weather {
   grid-column-start: 1;
