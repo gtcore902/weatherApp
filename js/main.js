@@ -89,7 +89,7 @@ async function removeErrorImg() {
 }
 
 function createSuggestedElements(datasAdresses) {
-  console.log(datasAdresses.features);
+  // console.log(datasAdresses.features);
   document.querySelector('.suggestions').innerHTML = '';
   datasAdresses.features.map((element) => {
     const link = document.createElement('li');
@@ -97,7 +97,7 @@ function createSuggestedElements(datasAdresses) {
     link.textContent = `${element.properties.city}, ${element.properties.country}`;
     link.addEventListener('click', () => {
       userLocation = element.properties.city;
-      console.log(userLocation);
+      // console.log(userLocation);
       launchSystem(element.properties.city).then(() => {
         document.querySelector('.suggestions').innerHTML = '';
       });
@@ -112,7 +112,7 @@ function inputListener() {
   inputTextBtn.addEventListener('input', () => {
     // if input value.length > on input
     if (inputTextBtn.value.length >= 3) {
-      console.log(inputTextBtn.value);
+      // console.log(inputTextBtn.value);
       getAutoCompleteAdresses(apiKeyAutocomplete, inputTextBtn.value).then(
         (datasAdresses) => {
           createSuggestedElements(datasAdresses);
@@ -145,7 +145,7 @@ deleteBtn.addEventListener('click', () => {
  * @returns string
  */
 function capitalize(userLocation) {
-  console.log(typeof userLocation);
+  // console.log(typeof userLocation);
   return (
     userLocation.charAt(0).toUpperCase() + userLocation.slice(1).toLowerCase()
   );
@@ -291,7 +291,7 @@ async function getForecastWeatherDatas(lat, lon) {
       throw new Error(response.status);
     }
     const datas = await response.json();
-    console.log(datas);
+    // console.log(datas);
     // Get and display data for the following days
     getDisplayforecastDay(datas);
   } catch (error) {
@@ -303,7 +303,7 @@ async function getForecastWeatherDatas(lat, lon) {
  * @param {string} weatherSky
  */
 function displayCurrentWeatherSky(id) {
-  console.log(id);
+  // console.log(id);
   currentWeatherSky.innerHTML = convertCurrentWeatherSky(id);
 }
 /**
@@ -359,9 +359,9 @@ async function getWeatherDatas(userLocation) {
       throw new Error(response.status);
     }
     if (response.status === 200) {
-      console.log(response.status);
+      // console.log(response.status);
       const datas = await response.json();
-      console.log(datas);
+      // console.log(datas);
       localStorage.setItem('location', userLocation);
       errorText.textContent = '';
       inputTextBtn.classList.remove('on-error');
