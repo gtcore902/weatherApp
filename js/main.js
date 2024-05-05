@@ -130,6 +130,7 @@ inputTextBtn.addEventListener('focus', () => {
 });
 deleteBtn.addEventListener('click', () => {
   inputTextBtn.value = '';
+  inputTextBtn.focus();
   deleteBtn.style.display = 'none';
 });
 /**
