@@ -121,6 +121,9 @@ function inputListener() {
     }
   });
 }
+/**
+ * Add delete button if input text value > 0
+ */
 inputTextBtn.addEventListener('focus', () => {
   if (inputTextBtn.value.length > 0) {
     deleteBtn.style.display = 'block';
@@ -128,6 +131,9 @@ inputTextBtn.addEventListener('focus', () => {
     deleteBtn.style.display = 'none';
   }
 });
+/**
+ * Remove text and add focus after clicking on delete button
+ */
 deleteBtn.addEventListener('click', () => {
   inputTextBtn.value = '';
   inputTextBtn.focus();
